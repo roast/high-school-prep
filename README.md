@@ -153,6 +153,11 @@ Mermaid 思维导图总结整章结构。
 
 > 提示词只是起点。随时用自己的话补充需求——语速、难度、可视化偏好、口吻严肃或活泼，Claude 都会立刻调整。
 
+## 学 Claude Code
+
+- 系统学 Claude Code 用法：读《Claude Code 从入门到精通》 https://my.feishu.cn/wiki/JK1WwrRgJiYfRok7YxxceS5qn1J
+- 安装 Claude Code（火山引擎）：https://www.volcengine.com/docs/82379/1928262?lang=zh
+
 ## 依赖安装
 
 依赖：`pandoc`、`xelatex`（TeX 发行版）、`pdftotext`（poppler）、`python3 + matplotlib + numpy`。
