@@ -26,3 +26,11 @@
 ## 协议
 
 MIT，见 `LICENSE`。
+
+## 测试
+
+```bash
+bash tests/run-all.sh
+```
+
+含环境检查、模板完整性、科目目录骨架、PDF 生成冒烟四组测试。
