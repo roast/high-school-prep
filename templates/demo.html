@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知识点互动演示 — <替换为知识点名></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+  <style>
+    body { font-family: -apple-system, "PingFang SC", "Songti SC", sans-serif; max-width: 800px; margin: 2em auto; padding: 0 1em; }
+    .concept { background: #f6f8fa; padding: 1em 1.5em; border-radius: 6px; }
+    .controls { margin: 1.5em 0; }
+    canvas, svg { display: block; margin: 1em 0; border: 1px solid #ddd; }
+    .hint { color: #666; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>知识点互动演示</h1>
+
+  <section class="concept">
+    <h2>概念说明</h2>
+    <p>在此处写概念讲解。公式用 LaTeX：$y = ax^2 + bx + c$。</p>
+  </section>
+
+  <section class="controls">
+    <h2>交互区</h2>
+    <label for="param-a">参数 a: <span id="val-a">1</span></label>
+    <input type="range" id="param-a" min="-3" max="3" step="0.1" value="1"
+           aria-label="调节二次项系数 a">
+    <canvas id="plot" width="700" height="400" aria-label="函数图像画布"></canvas>
+    <p class="hint">拖动滑块观察图像变化。引导问题：a 改变符号时图像如何翻转？</p>
+  </section>
+
+  <script>
+    const canvas = document.getElementById('plot');
+    const ctx = canvas.getContext('2d');
+    const sliderA = document.getElementById('param-a');
+    const valA = document.getElementById('val-a');
+
+    function draw() {
+      const a = parseFloat(sliderA.value);
+      valA.textContent = a.toFixed(1);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // 坐标轴
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height / 2);
+      ctx.lineTo(canvas.width, canvas.height / 2);
+      ctx.moveTo(canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, canvas.height);
+      ctx.stroke();
+      // y = a*x^2
+      ctx.beginPath();
+      for (let px = 0; px <= canvas.width; px++) {
+        const x = (px - canvas.width / 2) / 50;
+        const y = a * x * x;
+        const py = canvas.height / 2 - y * 10;
+        if (px === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+    }
+
+    sliderA.addEventListener('input', draw);
+    draw();
+  </script>
+</body>
+</html>
