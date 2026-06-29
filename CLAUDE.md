@@ -54,12 +54,25 @@
 - 每科目目录固定结构：`README.md` / `progress.md` / `mistakes.md` / `knowledge/` / `questions/`
 
 ## 6. 题目生成硬约束
-1. 题目源文件 Markdown + LaTeX 公式（`$...$` 行内，`$$...$$` 块级）
+1. 题目源文件 Markdown + LaTeX 公式（`$...$` 行内，`$$...$$` 块级）——仅用于走 `scripts/build-pdf.sh` 编译 PDF 的题目
 2. 题干后留足作答空白（每题至少 6 行 `\vspace{6\baselineskip}`）
 3. 答案与解析集中在文档最后一页（`\newpage` 后），前页禁出现答案
 4. 输出 PDF：pandoc + xelatex，模板 `templates/question-pdf.tex`，编译命令 `bash scripts/build-pdf.sh <src.md>`
 5. 难度三档：基础 / 巩固 / 拔高，生成时显式标注
 6. 文件名：`questions/YYYY-MM-DD_<知识点>_<难度>_<序号>.md`，同名 `.pdf`
+
+### 6.1 对话中直接输出的题目（不编译 PDF）
+追问、自检问题、即时练习、变体题等在对话窗口直接展示的题目，**禁用 LaTeX**，改用纯文本 + Unicode 符号，避免终端乱码：
+- 上下标用 `^` `_` 或 Unicode：`x²`、`x³`、`a_n`、`v₀`
+- 运算符：`×` `÷` `±` `∓` `·`
+- 关系：`=` `≠` `≈` `≤` `≥` `<>` `∈` `∉` `⊂` `⊆` `∪` `∩` `∅`
+- 根号与极限：`√2`、`√(x+1)`、`∑`、`∏`、`∫`、`lim`、`∞`
+- 分数：`a/b` 或 `(a)/(b)`；复杂分数用 `½` `¼` 等 Unicode
+- 角度与三角：`30°`、`sin`、`cos`、`tan`、`π`、`θ`
+- 物理单位：`m/s`、`m/s²`、`N`、`kg`、`J`、`W`
+- 化学方程式：直接写 `2H₂ + O₂ → 2H₂O`，用 Unicode 下标 `₂ ₃ ₄` 和箭头 `→ ↑ ↓ ⇌`
+
+例：对话中写"解方程 x² − 5x + 6 = 0"，不写 `$x^2 - 5x + 6 = 0$`。
 
 ## 7. 互动演示约束（HTML）
 1. 单文件 HTML，vanilla JS + KaTeX CDN，无构建
