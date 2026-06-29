@@ -31,7 +31,7 @@ AI 不会替你思考，但它能让一个人学习的效率翻好几倍：
 2. 知识点讲解：初中基础 → 高中新知 → 例题 → 自检问题 → 思维导图
 3. 互动演示：HTML+JS 持久页（KaTeX 渲染、滑块调参、canvas 绘图）
 4. 即时可视化：Python matplotlib/numpy 脚本，带中文注释可直接运行
-5. 题目生成：Markdown + LaTeX → Pandoc + XeLaTeX → PDF，留作答空白，答案末页
+5. 题目生成：Markdown + Unicode 数学 → weasyprint + markdown → PDF，留作答空白，答案末页
 6. 难度三档：基础 / 巩固 / 拔高，按需指定
 7. 对话追问：苏格拉底式反问，答错追到根因概念
 8. 错题自动记录与复盘：4 种触发，无需手动标记；复盘重出变体题
@@ -55,8 +55,6 @@ AI 不会替你思考，但它能让一个人学习的效率翻好几倍：
 ## 10 个场景与提示词样板
 
 下面 10 个场景覆盖预习、练习、复盘、可视化、计划等全部用法。把提示词复制到 Claude Code 里直接发，按需替换方括号内容。
-
-> **题目输出格式提示**：生成 PDF 的题目用 LaTeX 公式（`$...$`）；但**在对话里直接输出和交互的题目**用纯文本 + Unicode 符号，避免终端乱码。例：`x² − 5x + 6 = 0`，`√2`，`≤`、`≠`、`∈`、`∞`、`∑`、`Δ`、`α`。复制题干时也用这套写法。
 
 ### 场景 1：生成加速度互动演示页
 
@@ -162,48 +160,20 @@ Mermaid 思维导图总结整章结构。
 
 ## 依赖安装
 
-依赖：`pandoc`、`xelatex`（TeX 发行版）、`pdftotext`（poppler）、`python3 + matplotlib + numpy`。
-
-### macOS（Homebrew）
+全部依赖通过 pip 安装，提高安装成功率：
 
 ```bash
-brew install pandoc poppler
-brew install --cask mactex
-python3 -m pip install matplotlib numpy
+python3 -m pip install markdown weasyprint pypdf matplotlib numpy
 ```
 
-### Linux（Debian / Ubuntu）
+> weasyprint 依赖系统库 pango/cairo。pip 安装后若报错缺库，按下表补装系统库：
 
-```bash
-sudo apt update
-sudo apt install -y pandoc poppler-utils texlive-xetex texlive-lang-chinese python3 python3-pip
-python3 -m pip install matplotlib numpy
-```
-
-### Linux（Fedora）
-
-```bash
-sudo dnf install -y pandoc poppler texlive-xetex texlive-xetex-fonts python3 python3-pip
-python3 -m pip install matplotlib numpy
-```
-
-### Windows（Chocolatey）
-
-需管理员权限的 PowerShell 或 cmd。
-
-```powershell
-choco install -y pandoc poppler miktex python
-python -m pip install matplotlib numpy
-```
-
-### Windows（Scoop，无需管理员）
-
-```powershell
-scoop install pandoc poppler
-scoop bucket add extras
-scoop install miktex python
-python -m pip install matplotlib numpy
-```
+| 平台 | 系统库安装命令 |
+|------|---------------|
+| macOS | `brew install pango` |
+| Debian/Ubuntu | `sudo apt install libpango-1.0-0 libpangoft2-1.0-0` |
+| Fedora | `sudo dnf install pango` |
+| Windows | weasyprint 在 Windows 上依赖 GTK 运行时，建议改用 WSL |
 
 > Windows 下运行 `scripts/*.sh` 需 Git Bash（随 Git for Windows 安装）或 WSL。
 

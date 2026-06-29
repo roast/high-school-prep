@@ -54,16 +54,16 @@
 - 每科目目录固定结构：`README.md` / `progress.md` / `mistakes.md` / `knowledge/` / `questions/`
 
 ## 6. 题目生成硬约束
-0. 默认行为：学生要求"出题/出 N 道/练几道"等未指定形式时，**统一生成 PDF**——走 Markdown+LaTeX 源文件 → `scripts/build-pdf.sh` 编译 → 同名 PDF。题干后留作答空白、答案置最后一页。只有学生明确说"在对话里直接出""不用 PDF""只出文字题"时，才走 §6.1 对话纯文本格式。
-1. 题目源文件 Markdown + LaTeX 公式（`$...$` 行内，`$$...$$` 块级）——仅用于走 `scripts/build-pdf.sh` 编译 PDF 的题目
-2. 题干后留足作答空白（每题至少 6 行 `\vspace{6\baselineskip}`）
-3. 答案与解析集中在文档最后一页（`\newpage` 后），前页禁出现答案
-4. 输出 PDF：pandoc + xelatex，模板 `templates/question-pdf.tex`，编译命令 `bash scripts/build-pdf.sh <src.md>`
+0. 默认行为：学生要求"出题/出 N 道/练几道"等未指定形式时，**统一生成 PDF**——走 Markdown 源文件 → `python3 scripts/build-pdf.py` 编译 → 同名 PDF。题干后留作答空白、答案置最后一页。只有学生明确说"在对话里直接出""不用 PDF""只出文字题"时，才走 §6.1 对话纯文本格式。
+1. 题目源文件 Markdown，数学统一 Unicode 符号（`x²` `x₁` `√` `∑` `→` 等），不用 LaTeX
+2. 题干后留作答空白：`<div class="answer-space"></div>`（高度 5em，约 6 行）
+3. 答案与解析集中在文档最后一页：答案标题前插 `<div class="page-break"></div>`，前页禁出现答案
+4. 输出 PDF：weasyprint + markdown，模板 `templates/question-pdf.html`，编译命令 `python3 scripts/build-pdf.py <src.md>`
 5. 难度三档：基础 / 巩固 / 拔高，生成时显式标注
 6. 文件名：`questions/YYYY-MM-DD_<知识点>_<难度>_<序号>.md`，同名 `.pdf`
 
 ### 6.1 对话中直接输出的题目（不编译 PDF）
-追问、自检问题、即时练习、变体题等在对话窗口直接展示的题目，**禁用 LaTeX**，改用纯文本 + Unicode 符号，避免终端乱码：
+追问、自检问题、即时练习、变体题等在对话窗口直接展示的题目，与 PDF 源文件统一使用 Unicode 数学符号，避免终端乱码：
 - 上下标用 `^` `_` 或 Unicode：`x²`、`x³`、`a_n`、`v₀`
 - 运算符：`×` `÷` `±` `∓` `·`
 - 关系：`=` `≠` `≈` `≤` `≥` `<>` `∈` `∉` `⊂` `⊆` `∪` `∩` `∅`
@@ -90,7 +90,7 @@
 ## 9. 知识点讲解文档约束
 1. 用 `templates/knowledge.md` 结构：初中基础 → 高中新知 → 例题 → 自检问题 → 思维导图
 2. 末尾附"掌握度自检问题"清单（3-5 题，不含答案，引导追问）
-3. 公式统一 LaTeX 语法
+3. 公式统一 Unicode 符号（与 §6 一致），不用 LaTeX
 4. 章节末附 Mermaid 知识结构思维导图
 
 ## 10. 追问机制

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 环境前置检查：pandoc / xelatex / python3 + matplotlib + numpy
+# 环境前置检查：python3 + weasyprint/markdown/pypdf + matplotlib/numpy
 # 退出码 0 = 全部就绪；1 = 有缺失
 set -uo pipefail
 
@@ -30,20 +30,25 @@ check_py_lib() {
 
 echo "== 高中预习项目环境检查 =="
 
-echo "[1/3] 命令行工具:"
-check_cmd pandoc "brew install pandoc  或  https://pandoc.org/installing.html"
-check_cmd xelatex "brew install --cask mactex  或  https://www.tug.org/texlive/"
-check_cmd pdftotext "brew install poppler"
+echo "[1/2] 命令行工具:"
+check_cmd python3 "https://www.python.org/downloads/"
 
-echo "[2/3] Python 模块:"
+echo "[2/2] Python 模块（pip 安装）:"
+check_py_lib markdown
+check_py_lib weasyprint
+check_py_lib pypdf
 check_py_lib matplotlib
 check_py_lib numpy
 
-echo "[3/3] 完成"
 if [ "$STATUS" = "0" ]; then
   echo "全部就绪。"
 else
   echo "有缺失项，请按上述提示安装后再运行 Claude Code。"
+  echo "一次性安装：pip install markdown weasyprint pypdf matplotlib numpy"
+  echo "weasyprint 依赖系统库 pango/cairo；若报错缺库："
+  echo "  macOS: brew install pango"
+  echo "  Debian/Ubuntu: sudo apt install libpango-1.0-0 libpangoft2-1.0-0"
+  echo "  Fedora: sudo dnf install pango"
 fi
 
 exit $STATUS
