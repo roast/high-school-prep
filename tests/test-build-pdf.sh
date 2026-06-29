@@ -7,9 +7,11 @@ BUILD="$REPO_ROOT/scripts/build-pdf.sh"
 SAMPLE="$REPO_ROOT/tests/sample-questions.md"
 OUT="$REPO_ROOT/tests/sample-questions.pdf"
 
-# 前置：pandoc + xelatex 必须存在，否则跳过而非失败
-if ! command -v pandoc >/dev/null 2>&1 || ! command -v xelatex >/dev/null 2>&1; then
-  echo "SKIP: pandoc 或 xelatex 未安装，跳过 PDF 冒烟测试"
+# 前置：pandoc + xelatex + pdftotext 必须存在，否则跳过而非失败
+if ! command -v pandoc >/dev/null 2>&1 || \
+   ! command -v xelatex >/dev/null 2>&1 || \
+   ! command -v pdftotext >/dev/null 2>&1; then
+  echo "SKIP: pandoc/xelatex/pdftotext 未安装，跳过 PDF 冒烟测试"
   exit 0
 fi
 

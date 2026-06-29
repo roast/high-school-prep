@@ -26,5 +26,5 @@ test_knowledge_md() {
 }
 
 test_knowledge_md
-echo "PASS: test-templates (knowledge)"
 echo "PASS: test-templates (demo)"
+echo "PASS: test-templates (knowledge)"

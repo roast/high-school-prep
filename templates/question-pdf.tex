@@ -2,18 +2,18 @@
 \documentclass[12pt,a4paper]{article}
 
 \usepackage{xeCJK}
-\setCJKmainfont{Songti SC}
-\setCJKsansfont{PingFang SC}
+\setCJKmainfont{$CJKmainfont$}
 
 \usepackage{amsmath,amssymb}
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 
 \usepackage{fancyhdr}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{高中预习}
-\fancyhead[R]{\leftmark}
+\fancyhead[R]{\rightmark}
 \fancyfoot[C]{\thepage}
 
 \usepackage{titlesec}

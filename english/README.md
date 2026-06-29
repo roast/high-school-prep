@@ -15,7 +15,9 @@
 - 语法点优先用例句对比，不堆术语
 
 ## 文件命名约定
-- 知识点：`knowledge/u<单元>-<知识点>/README.md`
+- 知识点：`knowledge/<单元>-<知识点>/README.md`（welcome 单元用 `welcome-<知识点>`）
+- 演示：`knowledge/u<单元>-<知识点>/demo.html`
+- Python 可视化：`knowledge/u<单元>-<知识点>/viz/<主题>.py`
 - 题目：`questions/YYYY-MM-DD_<知识点>_<难度>_<序号>.md`
 
 ## 进度文件
