@@ -54,6 +54,7 @@
 - 每科目目录固定结构：`README.md` / `progress.md` / `mistakes.md` / `knowledge/` / `questions/`
 
 ## 6. 题目生成硬约束
+0. 默认行为：学生要求"出题/出 N 道/练几道"等未指定形式时，**统一生成 PDF**——走 Markdown+LaTeX 源文件 → `scripts/build-pdf.sh` 编译 → 同名 PDF。题干后留作答空白、答案置最后一页。只有学生明确说"在对话里直接出""不用 PDF""只出文字题"时，才走 §6.1 对话纯文本格式。
 1. 题目源文件 Markdown + LaTeX 公式（`$...$` 行内，`$$...$$` 块级）——仅用于走 `scripts/build-pdf.sh` 编译 PDF 的题目
 2. 题干后留足作答空白（每题至少 6 行 `\vspace{6\baselineskip}`）
 3. 答案与解析集中在文档最后一页（`\newpage` 后），前页禁出现答案
