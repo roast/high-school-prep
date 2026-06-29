@@ -177,6 +177,19 @@ python3 -m pip install 'pydyf==0.10.0'
 | Fedora | `sudo dnf install pango` |
 | Windows | weasyprint 在 Windows 上依赖 GTK 运行时，建议改用 WSL |
 
+> **macOS 踩坑：** `brew install pango` 后 weasyprint 仍可能找不到 native glib/pango，渲染时报错。需将 Homebrew lib 目录加入 `DYLD_LIBRARY_PATH`：
+>
+> ```bash
+> # Apple Silicon
+> export DYLD_LIBRARY_PATH="/opt/homebrew/lib:$DYLD_LIBRARY_PATH"
+> # Intel Mac
+> export DYLD_LIBRARY_PATH="/usr/local/lib:$DYLD_LIBRARY_PATH"
+> # 或一行通用
+> export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
+> ```
+>
+> 写进 `~/.zshrc` 或 `~/.bashrc` 持久生效。运行 `bash scripts/check-env.sh` 会做一次微型渲染探活，能捕捉此问题。
+
 > Windows 下运行 `scripts/*.sh` 需 Git Bash（随 Git for Windows 安装）或 WSL。
 
 ## 快速开始
