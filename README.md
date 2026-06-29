@@ -164,6 +164,8 @@ Mermaid 思维导图总结整章结构。
 
 ```bash
 python3 -m pip install markdown weasyprint pypdf matplotlib numpy
+# weasyprint 61.x 与 pydyf 0.11+ API 不兼容，需 pin pydyf==0.10.0
+python3 -m pip install 'pydyf==0.10.0'
 ```
 
 > weasyprint 依赖系统库 pango/cairo。pip 安装后若报错缺库，按下表补装系统库：
