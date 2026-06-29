@@ -1,0 +1,36 @@
+% !TEX engine = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}
+\setCJKsansfont{PingFang SC}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{高中预习}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+
+$body$
+
+\end{document}
