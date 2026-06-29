@@ -13,4 +13,18 @@ test_demo_html() {
 }
 
 test_demo_html
+
+test_knowledge_md() {
+  local f="$REPO_ROOT/templates/knowledge.md"
+  [ -f "$f" ] || { echo "FAIL: knowledge.md 不存在"; exit 1; }
+  grep -q "## 初中基础" "$f" || { echo "FAIL: 缺少'初中基础'节"; exit 1; }
+  grep -q "## 高中新知" "$f" || { echo "FAIL: 缺少'高中新知'节"; exit 1; }
+  grep -q "## 例题" "$f" || { echo "FAIL: 缺少'例题'节"; exit 1; }
+  grep -q "## 自检问题" "$f" || { echo "FAIL: 缺少'自检问题'节"; exit 1; }
+  grep -q "## 思维导图" "$f" || { echo "FAIL: 缺少'思维导图'节"; exit 1; }
+  grep -q "mermaid" "$f" || { echo "FAIL: 缺少 Mermaid 代码块"; exit 1; }
+}
+
+test_knowledge_md
+echo "PASS: test-templates (knowledge)"
 echo "PASS: test-templates (demo)"
